@@ -1,5 +1,6 @@
 const Assignment = require("../../models/EducationSchema/assignment.mode");
-const Course = require("../../models/EducationSchema/course.model")
+const Course = require("../../models/EducationSchema/course.model");
+const Grad = require("../../models/EducationSchema/grade.model");
 
 const UpdateTeacher = async(req,res)=>{
     let {id} = req.params;
@@ -39,4 +40,28 @@ const UploadAssignment = async(req,res)=>{
     }
 }
 
-module.exports = {UpdateTeacher,UploadAssignment}
+
+const AddGrad = async(req,res)=>{
+    try {
+        let {grade,courseId,studentId} =req.body
+        if(!grade || !courseId || !studentId){
+            return res.status(400).json({message:"All Field are required."})
+        }
+
+
+        if(req.user.role == 'Teacher'){
+            let Data = new Grad({
+                grade,courseId,studentId,teacherId:req.user._id
+            })
+            await Data.save()
+            res.status(201).json({success:true,message:"Gead Add SuccessFully.",data:Data})
+        }else{
+            res.status(400).json({success:false,message:"Unauthorized"})
+
+        }
+    } catch (error) {
+        console.log('Error In UploadAssignment From Teacher Controller :- ',error.message)
+        res.status(500).json({message:"Internal Error.",error:error})
+    }
+}
+module.exports = {UpdateTeacher,UploadAssignment,AddGrad}
