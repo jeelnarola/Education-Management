@@ -107,3 +107,10 @@ role:{
     createdAt: { type: Date, default: Date.now },            // Timestamp for creation
     updatedAt: { type: Date, default: Date.now },
 ```
+
+
+## POST route :- Create Course For Admin
+
+1. Create a Post route at ```/Admin/create/course```.
+2. send a response containing all available event.
+3. Middleware Use And Check Admin True to Create A Course And False to res message Unauthorized.

@@ -4,8 +4,7 @@ const cookie = require('cookie-parser')
 const User = require('../models/Auth/auth.models')
 const CheckAdmin = async(req,res,next)=>{
     try {
-        console.log("middlewares")
-        let token = req.cookies['jwt-EducationManagement']
+        let token = req.cookies['jwt-EM']
         if(!token){
             res.status(401).json({success:false,message:"Unauthorized - No Token Provided"})
         }

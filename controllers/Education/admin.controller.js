@@ -1,3 +1,5 @@
+const Course = require("../../models/EducationSchema/course.model");
+
 const CreateCourse = async(req,res)=>{
     try {
         let {name,description,teacherId,syllabus,students,schedule} = req.body;
@@ -8,9 +10,9 @@ const CreateCourse = async(req,res)=>{
             let Obj = new Course({
                 name,description,teacherId,syllabus,students,schedule
             })
-            await Booksobj.save()
+            await Obj.save()
             res.status(201).json({success:true,create:{
-            ...Booksobj._doc,
+            ...Obj._doc,
             }})
         }else{
             res.status(400).json({success:false,message:"Unauthorized"})
@@ -18,9 +20,53 @@ const CreateCourse = async(req,res)=>{
 
         
     } catch (error) { 
-        console.log('Error In TeacherCreate From Admin Controller :- ',error.message)
+        console.log('Error In CreateCourse From Admin Controller :- ',error.message)
         res.status(500).json({message:"Internal Error.",error:error})
     }
 }
 
-module.exports = CreateCourse
+const UpdateCourse = async(req,res)=>{
+    let {id} = req.params
+    let {name,description,teacherId,syllabus,students,schedule} = req.body;
+
+    try {
+        let ExtisCourse = await Course.findById(id)
+        if(!ExtisCourse){
+            return res.status(404).json({message:"Opps ! No Data Found."})
+        }
+
+        if(req.user.role == 'Admin'){
+            let Data = await Course.findByIdAndUpdate(id,{name,description,teacherId,syllabus,students,schedule},{new:true,runValidators:true})
+            res.status(201).json({success:true,data:Data})
+        }else{
+            res.status(400).json({success:false,message:"Unauthorized"})
+        }
+
+    } catch (error) {
+        console.log('Error In UpdateCourse From Admin Controller :- ',error.message)
+        res.status(500).json({message:"Internal Error.",error:error})
+    }
+}
+
+const DeleteCourse = async(req,res)=>{
+    let {id} = req.params
+    try {
+        let ExtisCourse = await Course.findById(id)
+        if(!ExtisCourse){
+            return res.status(404).json({message:"Opps ! No Data Found."})
+        }
+
+        if(req.user.role == 'Admin'){
+            let Data = await Course.findByIdAndDelete(id)
+            res.status(201).json({success:true,message:'Delete Successfully...',data:Data})
+        }else{
+            res.status(400).json({success:false,message:"Unauthorized"})
+        }
+
+    } catch (error) {
+        console.log('Error In UpdateCourse From Admin Controller :- ',error.message)
+        res.status(500).json({message:"Internal Error.",error:error})
+    }
+}
+
+module.exports = {CreateCourse,UpdateCourse,DeleteCourse}

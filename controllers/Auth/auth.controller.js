@@ -55,7 +55,7 @@ const Login = async(req,res)=>{
 
         const isPasswordMatch = await UserExtits.comparePassword(password)
         if(isPasswordMatch){
-            SetToken(UserExtits._id,res)
+            await SetToken(UserExtits._id,res)
             res.status(201).json({success:true,user:{
                 ...UserExtits._doc,
                 password:""
