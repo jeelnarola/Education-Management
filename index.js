@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const DatabaseConnect = require('./configs/db')
 require('dotenv').config()
 const app = express()
 app.use(express.json())
@@ -12,4 +13,5 @@ app.get("/",(req,res)=>{
 
 app.listen(process.env.PORT,()=>{
     console.log("server Start :- ",process.env.PORT)
+    DatabaseConnect()
 })
