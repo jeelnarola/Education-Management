@@ -108,9 +108,55 @@ role:{
     updatedAt: { type: Date, default: Date.now },
 ```
 
+#### assignment Schema
+1. Create A Educationa Folder From Models.
+    1. Inside this folder, create a file named 'assignment.models.js' with the following schema.
+```
+    title,                      // Title of the assignment
+    description,
+    courseId,     // Link to the course
+    teacherId,    // Link to the teacher
+    studentsAssigned: [{ type: mongoose.Schema.Types.ObjectId, ref: ' ref student' }],
+    dueDate, 
+    submissions: [{
+        studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'ref student' }, // Student submitting the assignment
+        submissionDate: { type: Date },  
+        stutas:{type:Boolean}                                                                        
+  }],
+```
 
-## POST route :- Create Course For Admin
+
+### POST route :- Create Course For Admin
 
 1. Create a Post route at ```/Admin/create/course```.
 2. send a response containing all available event.
 3. Middleware Use And Check Admin True to Create A Course And False to res message Unauthorized.
+
+### PATCH route :- Update Course For Admin
+
+1. Create a Patch route at ```/Admin/update/course/:id```.
+2. send a response containing all available event.
+3. Middleware Use And Check Admin True to Create A Course And False to res message Unauthorized.
+
+### DELETE route :- DELETE Course For Admin
+
+1. Create a DELETE route at ```/Admin/delete/course/:id```.
+2. send a response containing all available event.
+3. Middleware Use And Check Admin True to Create A Course And False to res message Unauthorized.
+
+<hr/>
+
+## Teacher Management
+
+### PATCH route :- PATCH Course For Teacher
+
+1. Create a Patch route at ```/Teacher/update/course/:id```.
+2. send a response containing all available event.
+3. Middleware Use And Check Teacher True to Create A Course And False to res message Unauthorized.
+
+
+### POST route :- POST Assignment For Teacher
+
+1. Create a Patch route at ```/Teacher/upload/assignment```.
+2. send a response containing all available event.
+3. Middleware Use And Check Teacher True to Create A Course And False to res message Unauthorized.

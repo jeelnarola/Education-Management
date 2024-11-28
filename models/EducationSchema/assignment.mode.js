@@ -11,7 +11,7 @@ const assignmentSchema = new mongoose.Schema({
         studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' }, // Student submitting the assignment
         submissionDate: { type: Date },  
         stutas:{type:Boolean}                                                                        
-  }],
+    }],
 })
 
 const Assignment = mongoose.model('Assignment',assignmentSchema)
