@@ -1,4 +1,5 @@
 const User = require("../../models/Auth/auth.models");
+const SetToken = require("../../utils/generateTokenAndSetCookie");
 
 const Register = async(req,res) =>{
     try {
@@ -17,7 +18,7 @@ const Register = async(req,res) =>{
         }
 
         let UserExtits = await User.findOne({email:email})
-
+        console.log("UserExtits",UserExtits)
         if(UserExtits){
             return res.status(400).json({success:false,message:"Email already exists"})
         }
@@ -27,7 +28,7 @@ const Register = async(req,res) =>{
             password,
             role
         })
-
+        SetToken(userObj._id,res)
         await userObj.save()
         res.status(201).json({success:true,user:{
             ...userObj._doc,
@@ -38,4 +39,33 @@ const Register = async(req,res) =>{
         res.status(500).json({message:'Internal Error :- ',error:error})
     }
 }
-module.exports = {Register}
+
+const Login = async(req,res)=>{
+    try {
+        let {email,password} = req.body;
+        if(!email || !password){
+            res.status(400).json({message:"All Filed Required."})
+        }
+
+        let UserExtits = await User.findOne({email:email})
+
+        if(UserExtits == null){
+            res.status(201).send({success:false,message:'Email Not Match..'});
+        }
+
+        const isPasswordMatch = await UserExtits.comparePassword(password)
+        if(isPasswordMatch){
+            SetToken(UserExtits._id,res)
+            res.status(201).json({success:true,user:{
+                ...UserExtits._doc,
+                password:""
+            }})
+        }else{
+            res.status(404).send({success:false,message:'Password Not Match.'})
+        }
+    } catch (error) {
+        console.log('Error In Login Controller :- ',error.message);
+        res.status(500).json({message:'Internal Error :- ',error:error})
+    }
+}
+module.exports = {Register,Login}
