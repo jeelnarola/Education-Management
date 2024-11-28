@@ -144,6 +144,12 @@ role:{
 2. send a response containing all available event.
 3. Middleware Use And Check Admin True to Create A Course And False to res message Unauthorized.
 
+### DELETE route :- DELETE Student Enroll For Admin
+1. Create a DELETE route at ```/Admin/enroll/remove```.
+1. req.body sent courseid AND userid.
+1. send a response containing all available event.
+1. Middleware Use And Check Admin True to Create A Course And False to res message Unauthorized.
+
 <hr/>
 
 ## Teacher Management
@@ -160,3 +166,20 @@ role:{
 1. Create a Patch route at ```/Teacher/upload/assignment```.
 2. send a response containing all available event.
 3. Middleware Use And Check Teacher True to Create A Course And False to res message Unauthorized.
+
+<hr/>
+
+## Student Management
+
+### POST route :- POST enroll Course For Student
+
+1. Create a POST route at ```/Student/enroll/course```.
+2. send a response containing all available event.
+3. Middleware Use And Check Teacher True to Create A Course And False to res message Unauthorized.
+ 
+### POST route :- POST Assignment Submition For Student
+
+1. Create a POST route at ```/Student/add/assignment```.
+2. req.body to sent Aissment ID.
+3. send a response containing all available event.
+4. Middleware Use And Check Teacher True to Create A Course And False to res message Unauthorized.
