@@ -6,7 +6,7 @@ require('dotenv').config()
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(cors())
+app.use(cors(({ origin: 'https://education-management-git-master-jeel-narolas-projects.vercel.app'})))
 
 app.use('/Auth',AuthRouter)
 app.get("/",(req,res)=>{
