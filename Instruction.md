@@ -183,3 +183,31 @@ role:{
 2. req.body to sent Aissment ID.
 3. send a response containing all available event.
 4. Middleware Use And Check Teacher True to Create A Course And False to res message Unauthorized.
+
+## Setup and Installation
+
+### Steps:
+
+1. Clone the repository.
+```
+git clone <repository-url> 
+```
+
+2. Install dependencies.
+```
+npm install
+```
+
+3. Create a .env file and add your MongoDB connection string.
+``` bash 
+PORT=9090
+MONGODB_URL=mongodb+srv://EducationManagement:EducationManagement@cluster0.dgwjmgh.mongodb.net/EducationManagement?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=MY_JWT_SECRET_QUIZ_APPLICATION
+
+```
+
+4. Start the server
+
+``` 
+npm start
+```
