@@ -32,7 +32,6 @@ const AssignmenSubbmison = async(req,res)=>{
         if (!dataAssignment) {
             return res.status(404).json({ message: "data not found." });
         }
-        console.log(dataAssignment)
         if(req.user.role == 'Student'){
             dataAssignment[0].submissions.push({
                 studentId:req.user._id,submissionDate: Date.now(),stutas:true

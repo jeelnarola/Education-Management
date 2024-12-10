@@ -80,10 +80,9 @@ const DeleteEnroll =async(req,res)=>{
                 await data.save()
                 res.status(201).json({success:true,message:'Student Remove Successfully...'})
             }else{
-                console.log("not")
+                console.log("not Access.")
             }
         })
-        // console.log(data.students)
     } catch (error) {
         console.log('Error In DeleteEnroll From Admin Controller :- ',error.message)
         res.status(500).json({message:"Internal Error.",error:error})
